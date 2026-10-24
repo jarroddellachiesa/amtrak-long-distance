@@ -1,0 +1,68 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amtrak Train Search</title><link rel="icon" type="image/gif" href="icons/favicon.gif"><link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png"><link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png"><link rel="manifest" href="icons/manifest.webmanifest"><meta name="theme-color" content="#0e2a4f"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<style>
+body{margin:0;font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#f3f5f9;color:#14213d}
+header{background:#0e2a4f;color:#fff;padding:12px 14px}header a{color:#9cc3ff;font-size:13px}h1{margin:0 0 4px;font-size:20px}
+.wrap{max-width:560px;margin:0 auto;padding:10px}
+input{width:100%;box-sizing:border-box;font-size:17px;padding:10px 12px;border:1px solid #b8c2d6;border-radius:10px}
+.res{margin:8px 0}.ri{background:#fff;border-radius:10px;padding:9px 12px;margin:5px 0;box-shadow:0 1px 3px #0002;cursor:pointer;display:flex;justify-content:space-between;gap:8px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 8px #0002;padding:14px;margin-top:10px}
+.ct{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.ct h2{margin:0;font-size:19px}.sub{color:#5a6780;font-size:13px}
+.b{display:inline-block;padding:3px 9px;border-radius:999px;font-weight:700;font-size:13px;color:#fff;white-space:nowrap}
+.ok{background:#2a893d}.mid{background:#d98a00}.bad{background:#c0392b}.gr{background:#7a869a}
+.next{background:#eef3fb;border-radius:10px;padding:9px 11px;margin:10px 0;font-size:15px}
+.map{position:relative;margin-top:8px;padding-left:26px}.map:before{content:"";position:absolute;left:10px;top:6px;bottom:6px;width:4px;background:#c9d2e3;border-radius:2px}
+.st{position:relative;padding:5px 0;font-size:14px;display:flex;justify-content:space-between;gap:6px}
+.st:before{content:"";position:absolute;left:-21px;top:9px;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid #0e2a4f}
+.st.p{color:#8a94a6}.st.p:before{background:#8a94a6;border-color:#8a94a6}.st.u{font-style:italic}
+.t{white-space:nowrap;font-variant-numeric:tabular-nums}.late{color:#c0392b}
+.pos{position:relative;margin:3px 0;font-weight:700;color:#0e2a4f;font-size:14px}.pos:before{content:"🚆";position:absolute;left:-27px;top:-2px}
+.meet{position:relative;margin:2px 0;font-size:13px;color:#7a4b00;background:#fff4dc;border-radius:6px;padding:3px 7px}.meet:before{content:"⇅";position:absolute;left:-23px;color:#d98a00;font-weight:700}
+.err{background:#fde8e6;color:#8a1f12;border-radius:10px;padding:10px;margin-top:10px}.foot{font-size:12px;color:#5a6780;margin:12px 0}
+</style></head><body><header><h1>🚆 Amtrak Train Search</h1><a href="./">← Long Distance page</a></header>
+<div class="wrap"><input id="q" placeholder="Train number or name (e.g. 291, Ethan Allen)" autocomplete="off">
+<div id="res" class="res"></div><div id="card"></div><div id="msg"></div>
+<div class="foot" id="foot">Live data: Amtraker (amtraker.com). Times in your local zone. Meets are estimates from live ETAs. Auto-refreshes every 3 min.</div></div>
+<script>
+const API="https://api-v3.amtraker.com/v3/trains";let all=[],sel=null,last=null;
+const $=id=>document.getElementById(id);
+const tm=s=>s?new Date(s).toLocaleTimeString([], {hour:"numeric",minute:"2-digit"}):"";
+const T=s=>s?new Date(s).getTime():NaN;
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const at=x=>x.dep||x.arr, sat=x=>x.schDep||x.schArr;
+const passed=x=>x.status==="Departed";
+function delayMin(t){const nx=t.stations.find(x=>!passed(x))||t.stations[t.stations.length-1];
+ const a=nx.arr||nx.dep,s=nx.schArr||nx.schDep;return a&&s?Math.round((T(a)-T(s))/60000):null}
+function badge(d,state){if(state&&state!=="Active")return `<span class="b gr">${esc(state)}</span>`;if(d==null)return '<span class="b gr">—</span>';
+ if(d<=5)return `<span class="b ok">${d<=0?"On time":d+" min late"}</span>`;return `<span class="b ${d<=30?"mid":"bad"}">${d>=60?Math.floor(d/60)+"h "+d%60+"m":d+" min"} late</span>`}
+async function load(){try{const r=await fetch(API,{cache:"no-store"});if(!r.ok)throw new Error(r.status);const j=await r.json();
+ all=Object.values(j).flat();last=new Date();$("msg").innerHTML="";search();if(sel)show(sel,true)}
+ catch(e){$("msg").innerHTML='<div class="err">Couldn\'t reach the live Amtrak feed right now. Check your connection — it will retry automatically in a few minutes.</div>'}}
+function search(){const q=$("q").value.trim().toLowerCase();if(!q){$("res").innerHTML="";return}
+ const m=all.filter(t=>t.trainNum===q||t.trainNum.startsWith(q)&&/^\d+$/.test(q)||t.routeName.toLowerCase().includes(q)).sort((a,b)=>a.trainNum-b.trainNum).slice(0,40);
+ $("res").innerHTML=m.length?m.map(t=>`<div class="ri" data-id="${esc(t.trainID)}"><span><b>#${esc(t.trainNum)}</b> ${esc(t.routeName)}<br><span class="sub">${esc(t.origName)} → ${esc(t.destName)}</span></span>${badge(delayMin(t),t.trainState)}</div>`).join(""):'<div class="sub">No active trains match.</div>';
+ document.querySelectorAll(".ri").forEach(e=>e.onclick=()=>{show(e.dataset.id);$("res").innerHTML=""})}
+function meets(t){const out=[];const codes=t.stations.map(x=>x.code);
+ for(const o of all){if(o.trainID===t.trainID||o.routeName!==t.routeName||o.trainState!=="Active")continue;
+  const om={};o.stations.forEach(x=>om[x.code]=T(at(x)));
+  const oi=codes.map(c=>c in om?1:0);let dir=0,f=null,l=null;codes.forEach((c,i)=>{if(c in om){if(f==null)f=i;l=i}});
+  if(f==null||f===l||!(om[codes[f]]>om[codes[l]]))continue; // must be opposing
+  for(let i=0;i<codes.length-1;i++){const a=codes[i],b=codes[i+1];if(!(a in om&&b in om))continue;
+   const ta=T(at(t.stations[i])),tb=T(t.stations[i+1].arr||t.stations[i+1].dep);
+   if(om[a]>=ta&&om[b]<=tb){out.push({i,o,time:new Date((Math.max(ta,om[b])+Math.min(tb,om[a]))/2)});break}}}
+ return out}
+function show(id,quiet){const t=all.find(x=>x.trainID===id);sel=id;if(!t){$("card").innerHTML='<div class="err">That train is no longer in the live feed.</div>';return}
+ const d=delayMin(t),nx=t.stations.find(x=>!passed(x));const ms=meets(t);let h="",posDone=false;
+ t.stations.forEach((x,i)=>{const p=passed(x);
+  if(!p&&!posDone){posDone=true;if(x.status!=="Station"||i>0)h+=`<div class="pos">${x.status==="Station"?"At "+esc(x.name):"Train here"}</div>`}
+  const a=x.arr||x.dep,s=x.schArr||x.schDep,lt=a&&s&&T(a)-T(s)>300000;
+  h+=`<div class="st ${p?"p":"u"}"><span>${esc(x.name)} <span class="sub">${esc(x.code)}</span></span><span class="t ${lt?"late":""}">${p?"dep "+tm(x.dep||x.arr):"est "+tm(a)}${s&&tm(s)!==tm(a)?` <span class="sub">(sch ${tm(s)})</span>`:""}</span></div>`;
+  ms.filter(m=>m.i===i).forEach(m=>h+=`<div class="meet">Est. meet #${esc(m.o.trainNum)} ~${tm(m.time)} (estimate)</div>`)});
+ $("card").innerHTML=`<div class="card"><div class="ct"><div><h2>#${esc(t.trainNum)} ${esc(t.routeName)}</h2><div class="sub">${esc(t.origName)} → ${esc(t.destName)}${t.statusMsg&&t.statusMsg.trim()?" • "+esc(t.statusMsg):""}</div></div>${badge(d,t.trainState)}</div>
+ <div class="next">${nx?`Next: <b>${esc(nx.name)}</b> · ETA ${tm(nx.arr||nx.dep)}`:"Arrived at destination"}${t.velocity>1?` · ${Math.round(t.velocity)} mph`:""}</div>
+ <div class="sub">${ms.length?ms.length+" estimated meet(s) with opposing trains":"No opposing meets estimated"} · updated ${tm(t.lastValTS||t.updatedAt)}</div>
+ <div class="map">${h}</div></div>`;if(!quiet)history.replaceState(null,"","#"+t.trainNum)}
+$("q").oninput=search;
+load().then(()=>{const h=decodeURIComponent(location.hash.slice(1));if(h){$("q").value=h;const t=all.find(x=>x.trainNum===h);if(t)show(t.trainID)}});
+setInterval(load,180000);
+</script></body></html>

@@ -1,0 +1,424 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="refresh" content="300"><title>Amtrak Long Distance</title><link rel="icon" type="image/gif" href="icons/favicon.gif"><link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png"><link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png"><link rel="manifest" href="icons/manifest.webmanifest"><meta name="theme-color" content="#0e2a4f"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Amtrak LD"><meta name="robots" content="noindex"><style>
+@page { size: 8.5in 11in; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 816px; height: 1056px; background: #fff; overflow: hidden; }
+body { font-family: 'Inter', 'Roboto', sans-serif; color: #1d2b40; -webkit-font-smoothing: antialiased;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.wrap { padding: 14px 18px 10px; }
+.hdr { display: flex; align-items: baseline; gap: 12px; border-bottom: 3px solid #1f6fd1; padding-bottom: 5px; margin-bottom: 8px; }
+.title { white-space: nowrap; color: #0e2a4f; font-size: 25px; font-weight: 800; letter-spacing: -0.4px; }
+.sub { white-space: nowrap; color: #5b6b82; font-size: 14px; font-weight: 600; }
+.eyebrow { white-space: nowrap; margin-left: auto; color: #1f6fd1; font-size: 12px; font-weight: 800; letter-spacing: 1.5px; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; }
+.card { background: #f6f8fb; border: 1px solid #dfe5ee; border-radius: 12px; padding: 8px 11px 7px; }
+.top { display: flex; justify-content: space-between; align-items: flex-start; gap: 6px; }
+.sect { grid-column: 1 / -1; font-size: 18.5px; font-weight: 800; color: #0e2a4f; letter-spacing: -0.2px;
+  border-bottom: 1px solid #c3cddc; padding-bottom: 2px; margin-bottom: -2px; }
+.sect:not(:first-child) { margin-top: 2px; }
+.numrow { display: flex; align-items: baseline; gap: 7px; margin-top: 1px; }
+.num { background: #0e2a4f; color: #fff; font-weight: 800; font-size: 16px; padding: 1px 7px; border-radius: 7px; }
+.route { font-size: 16px; font-weight: 700; color: #0e2a4f; }
+.trip { font-size: 12px; color: #5f6b7e; margin-top: 3px; }
+.badge { color: #fff; border-radius: 9px; padding: 4px 9px; text-align: center; }
+.btxt { font-size: 16px; font-weight: 800; white-space: nowrap; }
+.bcap { font-size: 12px; font-weight: 600; white-space: nowrap; }
+.headline { font-size: 14.5px; font-weight: 700; color: #13233b; margin-top: 4px; }
+.chips { display: flex; gap: 6px; margin-top: 4px; }
+.chip { flex: 1; background: #fff; border: 1px solid #dde3ec; border-radius: 7px; padding: 2px 7px; white-space: nowrap; }
+.chip .k { font-size: 12px; font-weight: 700; color: #7d889a; letter-spacing: .5px; text-transform: uppercase; }
+.chip .v { font-size: 14px; font-weight: 700; color: #0e2a4f; }
+.outside { margin-top: 4px; background: #e8effa; color: #0e2a4f; font-weight: 600; font-size: 12px;
+  padding: 3px 7px; border-radius: 7px; }
+.winrow { display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 700;
+  color: #7d889a; margin-top: 4px; }
+.wtag { background: #e8effa; color: #1f6fd1; border-radius: 7px; padding: 0 6px; font-size: 12px; font-weight: 800; }
+.diagram { margin: 0 -3px; }
+.diagram svg { display: block; }
+.ln { font-size: 12.5px; color: #2b3a52; margin-top: 1px; }
+.ln.sm { font-size: 12px; color: #3b4a60; line-height: 1.3; }
+.ln .k { display: inline-block; min-width: 34px; font-size: 12px; font-weight: 800; color: #7d889a;
+  letter-spacing: .5px; text-transform: uppercase; margin-right: 3px; }
+.gps { font-size: 12px; color: #7d889a; margin-top: 1px; }
+.also { margin-top: 8px; background: #f6f8fb; border: 1px solid #dfe5ee; border-radius: 10px; padding: 5px 11px 4px; }
+.atitle { color: #5f6b7e; font-size: 12px; font-weight: 800; letter-spacing: 1.3px; text-transform: uppercase; }
+.agrid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 14px; }
+.arow { font-size: 12px; color: #0e2a4f; padding: 1px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.one { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+.foot { color: #5f6b7e; font-size: 12px; margin-top: 6px; line-height: 1.35; }
+.legend { color: #5f6b7e; font-size: 12px; margin-top: 5px; }
+
+html, body { width: auto !important; height: auto !important; overflow: auto !important; }
+body { background: #eef2f7; }
+.wrap { max-width: 900px; margin: 0 auto; background: #fff; padding: 14px 16px 18px; }
+.hdr { flex-wrap: wrap; row-gap: 2px; }
+.sub { white-space: normal; }
+.diagram svg { width: 100%; height: auto; max-width: 100%; }
+.stalewarn { background:#fdecea; color:#b3261e; font-weight:700; border-radius:8px; padding:6px 10px; margin-bottom:8px; font-size:14px; }
+.upd { color:#5f6b7e; font-size:12px; margin-top:4px; }
+@media (max-width: 700px) {
+  .wrap { padding: 10px 8px 14px; }
+  .grid { grid-template-columns: 1fr; }
+  .agrid { grid-template-columns: 1fr; }
+  .eyebrow { margin-left: 0; }
+  .chip { white-space: normal; }
+  .one { white-space: normal; }
+}
+</style></head>
+<body><div class="wrap" id="wrap">
+<div class="hdr"><div class="title">🚆 Amtrak Long Distance</div>
+<div class="sub">2:34 PM PT • Sat Oct 24</div><div class="eyebrow">LIVE STATUS</div></div>
+<div class="grid"><div class="sect">Coast Starlight</div><div class="card">
+  <div class="top"><div><div class="numrow"><span class="num">#11</span><span class="route">SEA → LAX</span></div><div class="trip">Trip 11-24 • departed Sat Oct 24</div></div>
+    <div class="badge" style="background:#1f9d55"><div class="btxt">4 min early</div>
+    <div class="bcap">into SLM</div></div></div>
+  <div class="headline">Not in California yet, near Portland, OR</div>
+  <div class="chips"><div class="chip"><span class="k">Status</span> <span class="v">Active</span></div>
+    <div class="chip"><span class="k distk">From me</span> <span class="v"><span class="dist" data-lat="45.50396893618011" data-lon="-122.65501325426385">522</span> mi</span></div></div>
+  <div class="outside one">📍 26 mph SE • 297 mi to DUN • reaches DUN Sun 12:45a</div>
+  <div class="winrow"><span>CA stops 1–7 of 18 • DUN → EMY</span><span class="wtag">CA stops ahead</span></div>
+  <div class="diagram"><svg viewBox="0 0 361 159" width="361" height="159" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Roboto, sans-serif">
+<line x1="337" y1="50" x2="360" y2="50" stroke="#cfd6e1" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 6"/>
+<line x1="24" y1="50" x2="337" y2="50" stroke="#cfd6e1" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 6"/>
+<text x="24.0" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">DUN</text>
+<circle cx="24.0" cy="50" r="5.5" fill="#fff" stroke="#9aa6b8" stroke-width="2.5"/>
+<text x="36.3" y="76" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40" font-style="italic">Sun 12:45a</text>
+<text x="24.5" y="90" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#1f9d55" font-style="italic">on time</text>
+<text x="34.1" y="104" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">Sun 12:45a</text>
+<text x="76.2" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">RDD</text>
+<circle cx="76.2" cy="50" r="5.5" fill="#fff" stroke="#9aa6b8" stroke-width="2.5"/>
+<text x="90.6" y="76" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40" font-style="italic">2:31a</text>
+<text x="76.2" y="90" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#1f9d55" font-style="italic">on time</text>
+<text x="84.8" y="104" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">2:31a</text>
+<text x="128.3" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">CIC</text>
+<circle cx="128.3" cy="50" r="5.5" fill="#fff" stroke="#9aa6b8" stroke-width="2.5"/>
+<text x="128.3" y="76" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40" font-style="italic">4:12a</text>
+<text x="128.3" y="90" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#1f9d55" font-style="italic">on time</text>
+<text x="128.3" y="104" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">4:12a</text>
+<text x="180.5" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">SAC</text>
+<circle cx="180.5" cy="50" r="5.5" fill="#fff" stroke="#9aa6b8" stroke-width="2.5"/>
+<text x="180.5" y="76" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40" font-style="italic">6:28a</text>
+<text x="180.5" y="90" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#1f9d55" font-style="italic">on time</text>
+<text x="180.5" y="104" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">6:28a</text>
+<text x="232.7" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">DAV</text>
+<circle cx="232.7" cy="50" r="5.5" fill="#fff" stroke="#9aa6b8" stroke-width="2.5"/>
+<text x="232.7" y="76" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40" font-style="italic">7:05a</text>
+<text x="232.7" y="90" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#1f9d55" font-style="italic">on time</text>
+<text x="232.7" y="104" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">7:05a</text>
+<text x="284.8" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">MTZ</text>
+<circle cx="284.8" cy="50" r="5.5" fill="#fff" stroke="#9aa6b8" stroke-width="2.5"/>
+<text x="284.8" y="76" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40" font-style="italic">7:54a</text>
+<text x="284.8" y="90" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#1f9d55" font-style="italic">on time</text>
+<text x="284.8" y="104" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">7:54a</text>
+<text x="337.0" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">EMY</text>
+<circle cx="337.0" cy="50" r="5.5" fill="#fff" stroke="#9aa6b8" stroke-width="2.5"/>
+<text x="337.0" y="76" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40" font-style="italic">8:33a</text>
+<text x="337.0" y="90" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#e0a100" font-style="italic">4 late</text>
+<text x="337.0" y="104" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">8:29a</text>
+<rect x="2" y="110" width="357" height="47" rx="7" fill="#eef2f8"/>
+<text x="9" y="123" font-size="12" font-weight="800" fill="#7d889a" letter-spacing="0.3">7-DAY DELAY • SEP 21–27 • AVG / MEDIAN</text>
+<text x="24.5" y="138" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#e0a100">10 late</text>
+<text x="76.2" y="138" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#e0a100">10 late</text>
+<text x="128.3" y="138" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#e0a100">10 late</text>
+<text x="180.5" y="138" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#1f9d55">31 early</text>
+<text x="232.7" y="138" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#e0a100">3 late</text>
+<text x="284.8" y="138" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#e0a100">4 late</text>
+<text x="337.0" y="138" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#e0a100">11 late</text>
+<text x="24.0" y="152" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#e0a100">5 late</text>
+<text x="76.2" y="152" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#e0a100">9 late</text>
+<text x="128.3" y="152" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#1f9d55">on time</text>
+<text x="180.5" y="152" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#1f9d55">38 early</text>
+<text x="232.7" y="152" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#e0a100">2 late</text>
+<text x="284.8" y="152" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#e0a100">4 late</text>
+<text x="337.0" y="152" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#e0a100">7 late</text>
+</svg></div>
+  
+  <div class="ln"><span class="k">Last</span> PDX 2:22 PM (on time)</div>
+  <div class="ln"><span class="k">Next</span> SLM, ETA 3:32 PM (4 min early)</div>
+  <div class="gps">GPS 45.5040, -122.6550 • fix 2:33 PM PT</div>
+</div><div class="card">
+  <div class="top"><div><div class="numrow"><span class="num">#14</span><span class="route">LAX → SEA</span></div><div class="trip">Trip 14-24 • departed Sat Oct 24</div></div>
+    <div class="badge" style="background:#d64545"><div class="btxt">51 min late</div>
+    <div class="bcap">ETA SLO 3:43 PM</div></div></div>
+  <div class="headline">Approaching San Luis Obispo</div>
+  <div class="chips"><div class="chip"><span class="k">Status</span> <span class="v">Active</span></div>
+    <div class="chip"><span class="k distk">From me</span> <span class="v"><span class="dist" data-lat="34.45682621266128" data-lon="-120.46048468854912">253</span> mi</span></div></div>
+  
+  <div class="winrow"><span>CA stops 3–9 of 17 • SIM → SJC</span></div>
+  <div class="diagram"><svg viewBox="0 0 361 176" width="361" height="176" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Roboto, sans-serif">
+<line x1="1" y1="50" x2="24" y2="50" stroke="#1f6fd1" stroke-width="4" stroke-dasharray="3 4" opacity="0.55"/>
+<line x1="337" y1="50" x2="360" y2="50" stroke="#cfd6e1" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 6"/>
+<line x1="24" y1="50" x2="337" y2="50" stroke="#cfd6e1" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 6"/>
+<line x1="24" y1="50" x2="150.9" y2="50" stroke="#1f6fd1" stroke-width="4" stroke-linecap="round"/>
+<text x="24.0" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">SIM</text>
+<circle cx="24.0" cy="50" r="6" fill="#1f6fd1"/>
+<text x="24.0" y="93" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40">10:49a</text>
+<text x="24.5" y="107" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#1f9d55">on time</text>
+<text x="24.0" y="121" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">10:49a</text>
+<text x="76.2" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">OXN</text>
+<circle cx="76.2" cy="50" r="6" fill="#1f6fd1"/>
+<text x="76.2" y="93" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40">11:32a</text>
+<text x="76.2" y="107" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#e0a100">10 late</text>
+<text x="76.2" y="121" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">11:22a</text>
+<text x="128.3" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">SBA</text>
+<circle cx="128.3" cy="50" r="6" fill="#1f6fd1"/>
+<text x="128.3" y="93" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40">12:54p</text>
+<text x="128.3" y="107" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#d64545">39 late</text>
+<text x="128.3" y="121" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">12:15p</text>
+<text x="180.5" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">SLO</text>
+<circle cx="180.5" cy="50" r="5.5" fill="#fff" stroke="#9aa6b8" stroke-width="2.5"/>
+<text x="180.5" y="93" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40" font-style="italic">3:43p</text>
+<text x="180.5" y="107" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#d64545" font-style="italic">51 late</text>
+<text x="180.5" y="121" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">2:52p</text>
+<text x="232.7" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">PRB</text>
+<circle cx="232.7" cy="50" r="5.5" fill="#fff" stroke="#9aa6b8" stroke-width="2.5"/>
+<text x="232.7" y="93" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40" font-style="italic">4:52p</text>
+<text x="232.7" y="107" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#d64545" font-style="italic">39 late</text>
+<text x="232.7" y="121" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">4:13p</text>
+<text x="284.8" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">SNS</text>
+<circle cx="284.8" cy="50" r="5.5" fill="#fff" stroke="#9aa6b8" stroke-width="2.5"/>
+<text x="284.8" y="93" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40" font-style="italic">6:32p</text>
+<text x="284.8" y="107" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#d64545" font-style="italic">22 late</text>
+<text x="284.8" y="121" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">6:10p</text>
+<text x="337.0" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">SJC</text>
+<circle cx="337.0" cy="50" r="5.5" fill="#fff" stroke="#9aa6b8" stroke-width="2.5"/>
+<text x="337.0" y="93" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40" font-style="italic">7:52p</text>
+<text x="337.0" y="107" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#e0a100" font-style="italic">6 late</text>
+<text x="337.0" y="121" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">7:46p</text>
+<line x1="32.7" y1="55" x2="32.7" y2="64" stroke="#1f6fd1" stroke-width="1.1"/>
+<rect x="28.2" y="45.5" width="9" height="9" fill="#fff" stroke="#1f6fd1" stroke-width="2" transform="rotate(45 32.7 50)"/>
+<rect x="2.0" y="64" width="83.5" height="15" rx="7.5" fill="#dce8fa" stroke="#1f6fd1" stroke-width="1.1"/>
+<text x="43.8" y="75.3" text-anchor="middle" font-size="12" font-weight="700" fill="#0e2a4f">#770 10:56a</text>
+<line x1="150.9" y1="17" x2="150.9" y2="40" stroke="#0e2a4f" stroke-width="1.2"/>
+<rect x="115.2" y="1" width="71.4" height="16" rx="8" fill="#0e2a4f"/>
+<text x="150.9" y="13.3" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">14 mph NW</text>
+<circle cx="150.9" cy="50" r="11" fill="#0e2a4f" stroke="#fff" stroke-width="2.5"/>
+<text x="150.9" y="54" text-anchor="middle" font-size="11.5">🚆</text>
+<rect x="2" y="127" width="357" height="47" rx="7" fill="#eef2f8"/>
+<text x="9" y="140" font-size="12" font-weight="800" fill="#7d889a" letter-spacing="0.3">7-DAY DELAY • SEP 22–28 • AVG / MEDIAN</text>
+<text x="24.0" y="155" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#e0a100">2 late</text>
+<text x="76.2" y="155" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#e0a100">3 late</text>
+<text x="128.3" y="155" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#e0a100">8 late</text>
+<text x="180.5" y="155" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#1f9d55">2 early</text>
+<text x="232.7" y="155" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#e0a100">9 late</text>
+<text x="284.8" y="155" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#d64545">48 late</text>
+<text x="336.6" y="155" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#d64545">61 late</text>
+<text x="26.9" y="169" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#1f9d55">on time</text>
+<text x="76.2" y="169" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#e0a100">2 late</text>
+<text x="128.3" y="169" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#e0a100">7 late</text>
+<text x="180.5" y="169" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#1f9d55">2 early</text>
+<text x="232.7" y="169" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#e0a100">9 late</text>
+<text x="284.8" y="169" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#d64545">36 late</text>
+<text x="336.0" y="169" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#d64545">47 late</text>
+</svg></div>
+  
+  <div class="ln"><span class="k">Last</span> SBA 12:54 PM (39 min late)</div>
+  <div class="ln"><span class="k">Next</span> SLO, ETA 3:43 PM (51 min late)</div>
+  <div class="gps">GPS 34.4568, -120.4605 • fix 2:10 PM PT</div>
+</div><div class="sect">California Zephyr</div><div class="card">
+  <div class="top"><div><div class="numrow"><span class="num">#5</span><span class="route">CHI → EMY</span></div><div class="trip">Trip 5-22 • departed Oct 22</div></div>
+    <div class="badge" style="background:#1f9d55"><div class="btxt">31 min early</div>
+    <div class="bcap">ETA SAC 2:34 PM</div></div></div>
+  <div class="headline">Approaching Sacramento</div>
+  <div class="chips"><div class="chip"><span class="k">Status</span> <span class="v">Active</span></div>
+    <div class="chip"><span class="k distk">From me</span> <span class="v"><span class="dist" data-lat="38.5852788266114" data-lon="-121.4510095637411">44</span> mi</span></div></div>
+  
+  <div class="winrow"><span>CA stops 2–8 of 9 • TRU → RIC</span></div>
+  <div class="diagram"><svg viewBox="0 0 361 205" width="361" height="205" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Roboto, sans-serif">
+<line x1="1" y1="50" x2="24" y2="50" stroke="#1f6fd1" stroke-width="4" stroke-dasharray="3 4" opacity="0.55"/>
+<line x1="337" y1="50" x2="360" y2="50" stroke="#cfd6e1" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 6"/>
+<line x1="24" y1="50" x2="337" y2="50" stroke="#cfd6e1" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 6"/>
+<line x1="24" y1="50" x2="162.2" y2="50" stroke="#1f6fd1" stroke-width="4" stroke-linecap="round"/>
+<text x="24.0" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">TRU</text>
+<circle cx="24.0" cy="50" r="6" fill="#1f6fd1"/>
+<text x="24.0" y="110" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40">10:33a</text>
+<text x="24.5" y="124" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#1f9d55">on time</text>
+<text x="24.0" y="138" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">10:33a</text>
+<text x="76.2" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">COX</text>
+<circle cx="76.2" cy="50" r="6" fill="#1f6fd1"/>
+<text x="76.2" y="110" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40">12:50p</text>
+<text x="76.2" y="124" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#1f9d55">on time</text>
+<text x="76.2" y="138" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">12:50p</text>
+<text x="128.3" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">RSV</text>
+<circle cx="128.3" cy="50" r="6" fill="#1f6fd1"/>
+<text x="128.3" y="110" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40">2:14p</text>
+<text x="128.3" y="124" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#1f9d55">on time</text>
+<text x="128.3" y="138" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">2:14p</text>
+<text x="180.5" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">SAC</text>
+<circle cx="180.5" cy="50" r="5.5" fill="#fff" stroke="#9aa6b8" stroke-width="2.5"/>
+<text x="180.5" y="110" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40" font-style="italic">2:34p</text>
+<text x="180.2" y="124" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#1f9d55" font-style="italic">31 early</text>
+<text x="180.5" y="138" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">3:05p</text>
+<text x="232.7" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">DAV</text>
+<circle cx="232.7" cy="50" r="5.5" fill="#fff" stroke="#9aa6b8" stroke-width="2.5"/>
+<text x="232.7" y="110" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40" font-style="italic">3:00p</text>
+<text x="230.3" y="124" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#1f9d55" font-style="italic">31 early</text>
+<text x="232.7" y="138" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">3:31p</text>
+<text x="284.8" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">MTZ</text>
+<circle cx="284.8" cy="50" r="5.5" fill="#fff" stroke="#9aa6b8" stroke-width="2.5"/>
+<text x="284.8" y="110" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40" font-style="italic">3:41p</text>
+<text x="281.7" y="124" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#1f9d55" font-style="italic">32 early</text>
+<text x="284.8" y="138" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">4:13p</text>
+<text x="337.0" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">RIC</text>
+<circle cx="337.0" cy="50" r="5.5" fill="#fff" stroke="#9aa6b8" stroke-width="2.5"/>
+<text x="337.0" y="110" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40" font-style="italic">4:12p</text>
+<text x="334.2" y="124" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#1f9d55" font-style="italic">35 early</text>
+<text x="337.0" y="138" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">4:47p</text>
+<line x1="70.7" y1="55" x2="70.7" y2="64" stroke="#1f6fd1" stroke-width="1.1"/>
+<line x1="208.1" y1="55" x2="208.1" y2="64" stroke="#1f6fd1" stroke-width="1.1" stroke-dasharray="2 2"/>
+<line x1="252.8" y1="55" x2="257.6" y2="64" stroke="#1f6fd1" stroke-width="1.1" stroke-dasharray="2 2"/>
+<line x1="289.3" y1="55" x2="289.3" y2="81" stroke="#1f6fd1" stroke-width="1.1" stroke-dasharray="2 2"/>
+<rect x="66.2" y="45.5" width="9" height="9" fill="#fff" stroke="#1f6fd1" stroke-width="2" transform="rotate(45 70.7 50)"/>
+<rect x="203.6" y="45.5" width="9" height="9" fill="#fff" stroke="#1f6fd1" stroke-width="2" transform="rotate(45 208.1 50)"/>
+<rect x="248.3" y="45.5" width="9" height="9" fill="#fff" stroke="#1f6fd1" stroke-width="2" transform="rotate(45 252.8 50)"/>
+<rect x="284.8" y="45.5" width="9" height="9" fill="#fff" stroke="#1f6fd1" stroke-width="2" transform="rotate(45 289.3 50)"/>
+<rect x="35.4" y="64" width="70.5" height="15" rx="7.5" fill="#dce8fa" stroke="#1f6fd1" stroke-width="1.1"/>
+<text x="70.7" y="75.3" text-anchor="middle" font-size="12" font-weight="700" fill="#0e2a4f">#6 12:35p</text>
+<rect x="169.6" y="64" width="77.0" height="15" rx="7.5" fill="#fff" stroke="#1f6fd1" stroke-width="1.1" stroke-dasharray="3 2"/>
+<text x="208.1" y="75.3" text-anchor="middle" font-size="12" font-weight="700" fill="#1f6fd1">#732 2:47p</text>
+<rect x="251.6" y="64" width="77.0" height="15" rx="7.5" fill="#fff" stroke="#1f6fd1" stroke-width="1.1" stroke-dasharray="3 2"/>
+<text x="290.1" y="75.3" text-anchor="middle" font-size="12" font-weight="700" fill="#1f6fd1">#734 3:15p</text>
+<rect x="250.8" y="81" width="77.0" height="15" rx="7.5" fill="#fff" stroke="#1f6fd1" stroke-width="1.1" stroke-dasharray="3 2"/>
+<text x="289.3" y="92.3" text-anchor="middle" font-size="12" font-weight="700" fill="#1f6fd1">#736 3:43p</text>
+<line x1="162.2" y1="17" x2="162.2" y2="40" stroke="#0e2a4f" stroke-width="1.2"/>
+<rect x="129.8" y="1" width="64.8" height="16" rx="8" fill="#0e2a4f"/>
+<text x="162.2" y="13.3" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">27 mph S</text>
+<circle cx="162.2" cy="50" r="11" fill="#0e2a4f" stroke="#fff" stroke-width="2.5"/>
+<text x="162.2" y="54" text-anchor="middle" font-size="11.5">🚆</text>
+<rect x="2" y="144" width="357" height="59" rx="7" fill="#eef2f8"/>
+<text x="9" y="157" font-size="12" font-weight="800" fill="#7d889a" letter-spacing="0.3">7-DAY DELAY • SEP 22–28 • AVG / MEDIAN</text>
+<text x="25.7" y="172" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#d64545">36 late</text>
+<text x="76.2" y="172" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#d64545">40 late</text>
+<text x="128.3" y="172" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#d64545">42 late</text>
+<text x="180.5" y="172" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#d64545">16 late</text>
+<text x="232.7" y="172" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#e0a100">8 late</text>
+<text x="284.8" y="172" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#e0a100">13 late</text>
+<text x="337.0" y="172" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#e0a100">6 late</text>
+<text x="24.0" y="186" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#e0a100">12 late</text>
+<text x="76.2" y="186" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#d64545">18 late</text>
+<text x="128.3" y="186" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#e0a100">2 late</text>
+<text x="178.3" y="186" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#1f9d55">22 early</text>
+<text x="229.2" y="186" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#1f9d55">27 early</text>
+<text x="280.1" y="186" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#1f9d55">23 early</text>
+<text x="331.6" y="186" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#1f9d55">30 early</text>
+<text x="128.3" y="199" text-anchor="middle" font-size="12" font-weight="400" letter-spacing="-0.3" fill="#7d889a">n=6</text>
+</svg></div>
+  <div class="ln sm one"><span class="k">More meets</span> Will meet #738 4:17p</div>
+  <div class="ln"><span class="k">Last</span> RSV 2:14 PM (on time)</div>
+  <div class="ln"><span class="k">Next</span> SAC, ETA 2:34 PM (31 min early)</div>
+  <div class="gps">GPS 38.5853, -121.4510 • fix 2:30 PM PT</div>
+</div><div class="card">
+  <div class="top"><div><div class="numrow"><span class="num">#6</span><span class="route">EMY → CHI</span></div><div class="trip">Trip 6-24 • departed Oct 24</div></div>
+    <div class="badge" style="background:#d64545"><div class="btxt">31 min late</div>
+    <div class="bcap">at TRU</div></div></div>
+  <div class="headline">At Truckee</div>
+  <div class="chips"><div class="chip"><span class="k">Status</span> <span class="v">Active</span></div>
+    <div class="chip"><span class="k distk">From me</span> <span class="v"><span class="dist" data-lat="39.32742071026258" data-lon="-120.18530053425886">123</span> mi</span></div></div>
+  
+  <div class="winrow"><span>CA stops 3–9 of 9 • MTZ → RNO</span></div>
+  <div class="diagram"><svg viewBox="0 0 361 193" width="361" height="193" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Roboto, sans-serif">
+<line x1="1" y1="50" x2="24" y2="50" stroke="#1f6fd1" stroke-width="4" stroke-dasharray="3 4" opacity="0.55"/>
+<line x1="24" y1="50" x2="337" y2="50" stroke="#cfd6e1" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 6"/>
+<line x1="24" y1="50" x2="284.8" y2="50" stroke="#1f6fd1" stroke-width="4" stroke-linecap="round"/>
+<text x="24.0" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">MTZ</text>
+<circle cx="24.0" cy="50" r="6" fill="#1f6fd1"/>
+<text x="24.0" y="110" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40">9:08a</text>
+<text x="24.0" y="124" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#e0a100">1 late</text>
+<text x="24.0" y="138" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">9:07a</text>
+<text x="76.2" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">DAV</text>
+<circle cx="76.2" cy="50" r="6" fill="#1f6fd1"/>
+<text x="76.2" y="110" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40">10:15a</text>
+<text x="76.2" y="124" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#d64545">27 late</text>
+<text x="76.2" y="138" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">9:48a</text>
+<text x="128.3" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">SAC</text>
+<circle cx="128.3" cy="50" r="6" fill="#1f6fd1"/>
+<text x="128.3" y="110" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40">10:45a</text>
+<text x="128.3" y="124" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#d64545">22 late</text>
+<text x="128.3" y="138" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">10:23a</text>
+<text x="180.5" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">RSV</text>
+<circle cx="180.5" cy="50" r="6" fill="#1f6fd1"/>
+<text x="180.5" y="110" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40">11:27a</text>
+<text x="180.5" y="124" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#d64545">36 late</text>
+<text x="180.5" y="138" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">10:51a</text>
+<text x="232.7" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">COX</text>
+<circle cx="232.7" cy="50" r="6" fill="#1f6fd1"/>
+<text x="232.7" y="110" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40">12:22p</text>
+<text x="232.7" y="124" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#d64545">43 late</text>
+<text x="232.7" y="138" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">11:39a</text>
+<text x="284.8" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">TRU</text>
+<circle cx="284.8" cy="50" r="5.5" fill="#fff" stroke="#9aa6b8" stroke-width="2.5"/>
+<text x="284.8" y="110" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40">2:32p</text>
+<text x="284.8" y="124" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#d64545">31 late</text>
+<text x="284.8" y="138" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">2:01p</text>
+<text x="337.0" y="33" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e2a4f">RNO</text>
+<circle cx="337.0" cy="50" r="5.5" fill="#fff" stroke="#9aa6b8" stroke-width="2.5"/>
+<text x="337.0" y="110" text-anchor="middle" font-size="12.5" font-weight="700" letter-spacing="-0.3" fill="#1d2b40" font-style="italic">3:35p</text>
+<text x="337.0" y="124" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#e0a100" font-style="italic">8 late</text>
+<text x="337.0" y="138" text-anchor="middle" font-size="12" font-weight="500" letter-spacing="-0.3" fill="#7d889a">3:27p</text>
+<line x1="45.9" y1="55" x2="45.9" y2="64" stroke="#1f6fd1" stroke-width="1.1"/>
+<line x1="238.1" y1="55" x2="238.1" y2="64" stroke="#1f6fd1" stroke-width="1.1"/>
+<line x1="74.3" y1="55" x2="74.3" y2="81" stroke="#1f6fd1" stroke-width="1.1"/>
+<rect x="41.4" y="45.5" width="9" height="9" fill="#fff" stroke="#1f6fd1" stroke-width="2" transform="rotate(45 45.9 50)"/>
+<rect x="233.6" y="45.5" width="9" height="9" fill="#fff" stroke="#1f6fd1" stroke-width="2" transform="rotate(45 238.1 50)"/>
+<rect x="69.8" y="45.5" width="9" height="9" fill="#fff" stroke="#1f6fd1" stroke-width="2" transform="rotate(45 74.3 50)"/>
+<rect x="7.4" y="64" width="77.0" height="15" rx="7.5" fill="#dce8fa" stroke="#1f6fd1" stroke-width="1.1"/>
+<text x="45.9" y="75.3" text-anchor="middle" font-size="12" font-weight="700" fill="#0e2a4f">#729 9:36a</text>
+<rect x="202.9" y="64" width="70.5" height="15" rx="7.5" fill="#dce8fa" stroke="#1f6fd1" stroke-width="1.1"/>
+<text x="238.1" y="75.3" text-anchor="middle" font-size="12" font-weight="700" fill="#0e2a4f">#5 12:35p</text>
+<rect x="32.6" y="81" width="83.5" height="15" rx="7.5" fill="#dce8fa" stroke="#1f6fd1" stroke-width="1.1"/>
+<text x="74.3" y="92.3" text-anchor="middle" font-size="12" font-weight="700" fill="#0e2a4f">#733 10:12a</text>
+<rect x="255.7" y="1" width="58.2" height="16" rx="8" fill="#0e2a4f"/>
+<text x="284.8" y="13.3" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Stopped</text>
+<circle cx="284.8" cy="50" r="11" fill="#0e2a4f" stroke="#fff" stroke-width="2.5"/>
+<text x="284.8" y="54" text-anchor="middle" font-size="11.5">🚆</text>
+<rect x="2" y="144" width="357" height="47" rx="7" fill="#eef2f8"/>
+<text x="9" y="157" font-size="12" font-weight="800" fill="#7d889a" letter-spacing="0.3">7-DAY DELAY • SEP 22–28 • AVG / MEDIAN</text>
+<text x="24.4" y="172" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#d64545">18 late</text>
+<text x="76.2" y="172" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#d64545">26 late</text>
+<text x="128.3" y="172" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#d64545">25 late</text>
+<text x="180.5" y="172" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#d64545">24 late</text>
+<text x="232.7" y="172" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#d64545">29 late</text>
+<text x="284.8" y="172" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#d64545">25 late</text>
+<text x="337.0" y="172" text-anchor="middle" font-size="12" font-weight="800" letter-spacing="-0.3" fill="#e0a100">8 late</text>
+<text x="24.0" y="186" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#e0a100">5 late</text>
+<text x="76.2" y="186" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#d64545">17 late</text>
+<text x="128.3" y="186" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#d64545">21 late</text>
+<text x="180.5" y="186" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#d64545">18 late</text>
+<text x="232.7" y="186" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#d64545">21 late</text>
+<text x="284.8" y="186" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#d64545">23 late</text>
+<text x="337.0" y="186" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="-0.3" fill="#e0a100">1 late</text>
+</svg></div>
+  <div class="ln sm one"><span class="k">More meets</span> Met #727 8:49a, +1 more</div>
+  <div class="ln"><span class="k">Last</span> COX 12:22 PM (43 min late)</div>
+  <div class="ln"><span class="k">Next</span> TRU, ETA 2:32 PM (31 min late)</div>
+  <div class="gps">GPS 39.3274, -120.1853 • fix 2:33 PM PT</div>
+</div></div>
+<div class="also"><div class="atitle">Also on the rails</div><div class="agrid"><div class="arow"><span class="dot" style="background:#d64545"></span><b>#14(23)</b> near Oakridge, OR • <b style="color:#d64545">218 min late</b> into EUG • 395 mi</div><div class="arow"><span class="dot" style="background:#1f9d55"></span><b>#5(23)</b> near Parachute, CO • <b style="color:#1f9d55">7 min early</b> into GJT • 738 mi</div><div class="arow"><span class="dot" style="background:#e0a100"></span><b>#5(24)</b> near Galva, IL • <b style="color:#e0a100">9 min late</b> into GBB • 1,693 mi</div><div class="arow"><span class="dot" style="background:#1f9d55"></span><b>#6(23)</b> near Fraser, CO • <b style="color:#1f9d55">54 min early</b> into DEN • 862 mi</div></div></div>
+<div class="legend"><b>Key:</b> ● passed ○ upcoming • <i>italic</i> = ETA • gray = scheduled •
+◇ meet <span style="background:#dce8fa;border:1px solid #1f6fd1;border-radius:7px;padding:0 5px">met</span>
+<span style="border:1px dashed #1f6fd1;border-radius:7px;padding:0 5px;color:#1f6fd1">projected</span> • badge = delay into next stop</div>
+<div class="foot">Amtraker v3 API, fetched 2:34 PM PT • GPS fixes 2:10 PM PT • miles straight-line from <span id="distfrom">me</span> • 7-day: avg (top) /
+median (bottom) arrival delay, Dixieland Software archive, n = days with data • meets interpolated from actual times + ETAs.</div>
+<div class="upd" style="font-size:15px;margin:8px 0"><a href="search.html">🔎 Search any Amtrak train</a></div><div class="upd" id="upd">Data updated 2:34 PM PT Sat Oct 24 • page rebuilt 2:34 PM PT • auto-refreshes every 5 min</div>
+<script>(function(){var t=1792877695878;var m=(Date.now()-t)/60000;
+if(m>30&&!document.querySelector('.stalewarn')){var d=document.createElement('div');d.className='stalewarn';
+d.textContent='⚠ Data is '+Math.round(m)+' min old — updates may be paused';var w=document.getElementById('wrap');w.insertBefore(d,w.firstChild);}})();</script><div class="upd" id="locnote"></div>
+<script>(function(){
+var els=[].slice.call(document.querySelectorAll('.dist'));
+els.forEach(function(e){e.dataset.home=e.textContent;});
+function hav(a,b,c,d){var R=3958.8,r=Math.PI/180,x=(c-a)*r,y=(d-b)*r;
+var h=Math.sin(x/2)*Math.sin(x/2)+Math.cos(a*r)*Math.cos(c*r)*Math.sin(y/2)*Math.sin(y/2);return 2*R*Math.asin(Math.sqrt(h));}
+function lab(k,f,n){[].forEach.call(document.querySelectorAll('.distk'),function(e){e.textContent=k;});
+var d=document.getElementById('distfrom');if(d)d.textContent=f;document.getElementById('locnote').textContent=n;}
+function home(why){els.forEach(function(e){e.textContent=e.dataset.home;});
+lab('From home','home',why?'Distances from home ('+why+')':'');}
+function ok(p){var la=p.coords.latitude,lo=p.coords.longitude;
+els.forEach(function(e){var a=parseFloat(e.dataset.lat),b=parseFloat(e.dataset.lon);
+if(isFinite(a)&&isFinite(b))e.textContent=Math.round(hav(la,lo,a,b)).toLocaleString("en-US");});
+lab('From me','you','Distances from your location (±'+Math.round(p.coords.accuracy||0)+' m)');}
+if(!navigator.geolocation){home('location unavailable');return;}
+navigator.geolocation.watchPosition(ok,function(e){home(e&&e.code===1?'location denied':'location unavailable');},
+{enableHighAccuracy:false,maximumAge:120000,timeout:20000});
+})();</script></div>
+
+</body></html>
