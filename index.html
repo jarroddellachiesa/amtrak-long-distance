@@ -1,0 +1,27 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Train Status</title><link rel="icon" href="icons/favicon.ico?v=4" sizes="48x48"><link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png?v=4"><link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png?v=4"><link rel="icon" type="image/png" sizes="96x96" href="icons/favicon-96.png?v=4"><link rel="icon" type="image/gif" href="icons/favicon.gif?v=4"><link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png?v=4"><link rel="manifest" href="icons/manifest.webmanifest?v=4"><meta name="theme-color" content="#0e2a4f"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Train Status">
+<style>
+body{margin:0;font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#f3f5f9;color:#14213d}
+header{background:#0e2a4f;color:#fff;padding:16px 14px 18px}h1{margin:0 0 10px;font-size:24px}
+.wrap{max-width:720px;margin:0 auto;padding:0 12px 20px}
+form{display:flex;gap:6px}input{flex:1;min-width:0;font-size:17px;padding:12px;border:0;border-radius:10px}
+button{font-size:16px;padding:0 16px;border:0;border-radius:10px;background:#f2b705;color:#0e2a4f;font-weight:700}
+nav{display:flex;gap:8px;margin:12px 0;overflow-x:auto}nav a{flex:0 0 auto;background:#fff;color:#0e2a4f;text-decoration:none;font-weight:600;padding:9px 13px;border-radius:999px;box-shadow:0 1px 3px #0002;font-size:14px}
+h2{font-size:16px;margin:18px 0 8px;color:#0e2a4f}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.g a{display:block;background:#fff;border-radius:12px;padding:10px 12px;text-decoration:none;color:#14213d;box-shadow:0 1px 3px #0002;font-weight:600;font-size:14px}
+.g a span{display:block;color:#5a6780;font-weight:400;font-size:12px;margin-top:2px}.g a:active{background:#eef3fb}
+.foot{font-size:12px;color:#5a6780;margin-top:18px}
+</style></head><body><header><div class="wrap" style="padding:0"><h1>🚆 Train Status</h1>
+<form onsubmit="var q=this.q.value.trim();if(q)location.href='search.html#'+encodeURIComponent(q);return false"><input name="q" placeholder="Train number or route (e.g. 5, Cascades)" autocomplete="off" enterkeyhint="search"><button>Search</button></form></div></header>
+<div class="wrap"><nav><a href="starlight-zephyr.html">🚆 Starlight &amp; Zephyr live cards</a><a href="search.html">🔎 Search any train</a></nav>
+<h2>Long-distance routes</h2><div class="g" id="ld"></div>
+<h2>Corridor services <span style="font-weight:400;font-size:12px;color:#5a6780">(shows all active trains)</span></h2><div class="g" id="co"></div>
+<div class="foot">Live data: Amtraker (amtraker.com). Times in your local zone.</div></div>
+<script>
+const LD=[["California Zephyr","5/6"],["Coast Starlight","11/14"],["Southwest Chief","3/4"],["Sunset Limited","1/2"],["Texas Eagle","21/22"],["Empire Builder","7/8"],["Floridian","40/41"],["Lake Shore Limited","48/49"],["Cardinal","50/51"],["City of New Orleans","58/59"],["Crescent","19/20"],["Silver Meteor","97/98"],["Palmetto","89/90"],["Auto Train","52/53"]];
+const CO=["Capitol Corridor","Gold Runner (San Joaquins)","Pacific Surfliner","Cascades","Northeast Regional","Acela","Keystone","Empire Service","Ethan Allen","Adirondack","Downeaster","Hiawatha","Vermonter","Carolinian","Piedmont","Maple Leaf","Lincoln Service","Wolverine","Illinois Zephyr","Blue Water","Pere Marquette","Saluki","Heartland Flyer","Missouri River Runner","Pennsylvanian","Borealis","Mardi Gras"];
+const L=(q,t,s)=>`<a href="search.html#${encodeURIComponent(q)}">${t}${s?`<span>${s}</span>`:""}</a>`;
+document.getElementById("ld").innerHTML=LD.map(([r,n])=>L(r,r,"#"+n.replace("/"," / #"))).join("");
+document.getElementById("co").innerHTML=CO.map(r=>L(r.replace(" (San Joaquins)","|San Joaquins"),r,"")).join("");
+</script></body></html>

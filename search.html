@@ -1,0 +1,124 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Train Status · Search</title><link rel="icon" href="icons/favicon.ico?v=4" sizes="48x48"><link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png?v=4"><link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png?v=4"><link rel="icon" type="image/png" sizes="96x96" href="icons/favicon-96.png?v=4"><link rel="icon" type="image/gif" href="icons/favicon.gif?v=4"><link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png?v=4"><link rel="manifest" href="icons/manifest.webmanifest?v=4"><meta name="theme-color" content="#0e2a4f"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<style>
+body{margin:0;font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#f3f5f9;color:#14213d}
+header{background:#0e2a4f;color:#fff;padding:12px 14px}header a{color:#9cc3ff;font-size:13px}h1{margin:0 0 4px;font-size:20px}
+.wrap{max-width:560px;margin:0 auto;padding:10px}
+input{width:100%;box-sizing:border-box;font-size:17px;padding:10px 12px;border:1px solid #b8c2d6;border-radius:10px}
+.res{margin:8px 0}.ri{background:#fff;border-radius:10px;padding:9px 12px;margin:5px 0;box-shadow:0 1px 3px #0002;cursor:pointer;display:flex;justify-content:space-between;gap:8px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 8px #0002;padding:14px;margin-top:10px}
+.ct{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.ct h2{margin:0;font-size:19px}.sub{color:#5a6780;font-size:13px}
+.b{display:inline-block;align-self:center;padding:3px 9px;border-radius:999px;font-weight:700;font-size:13px;color:#fff;white-space:nowrap}
+.ok{background:#2a893d}.mid{background:#d98a00}.bad{background:#c0392b}.gr{background:#7a869a}
+.next{background:#eef3fb;border-radius:10px;padding:9px 11px;margin:10px 0;font-size:15px}
+.card{background:#f6f8fb;border:1px solid #dfe5ee;border-radius:12px;padding:10px 12px;box-shadow:none}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:6px}
+.numrow{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}.num{background:#0e2a4f;color:#fff;font-weight:800;font-size:17px;padding:1px 8px;border-radius:7px}
+.route{font-size:18px;font-weight:700;color:#0e2a4f}.trip{font-size:12.5px;color:#5f6b7e;margin-top:3px}
+.badge{color:#fff;border-radius:9px;padding:4px 10px;text-align:center}.btxt{font-size:17px;font-weight:800;white-space:nowrap}.bcap{font-size:12px;font-weight:600;white-space:nowrap}
+.headline{font-size:16px;font-weight:700;color:#13233b;margin-top:6px}
+.chips{display:flex;gap:6px;margin-top:5px}.chip{flex:1;background:#fff;border:1px solid #dde3ec;border-radius:7px;padding:3px 8px;white-space:nowrap}
+.chip .k{font-size:12px;font-weight:700;color:#8a94a6;letter-spacing:.5px;text-transform:uppercase}.chip .v{font-size:15px;font-weight:700;color:#0e2a4f}
+.winrow{font-size:12px;font-weight:700;color:#8a94a6;margin-top:6px}
+.ln{font-size:13px;color:#2b3a52;margin-top:2px}.ln .k{display:inline-block;min-width:38px;font-size:12px;font-weight:800;color:#8a94a6;letter-spacing:.5px;text-transform:uppercase;margin-right:3px}
+.gps{font-size:12px;color:#8a94a6;margin-top:2px}
+.map{position:relative;margin:6px 0;max-height:60vh;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;background:#fff;border:1px solid #dde3ec;border-radius:9px;padding:6px 8px 6px 0}
+.r{position:relative;display:flex;align-items:center;min-height:30px;padding-left:44px}
+.r:before{content:"";position:absolute;left:20px;top:0;bottom:0;border-left:4px dotted #b8c2d3}
+.r.pp:before{border-left:4px solid #1f6fd1}.r.first:before{top:50%}.r.last:before{bottom:50%}
+.dot{position:absolute;left:14px;top:50%;margin-top:-8px;width:16px;height:16px;border-radius:50%;box-sizing:border-box;background:#fff;border:3px solid #8a94a6;z-index:1}
+.r.p .dot{background:#1f6fd1;border-color:#1f6fd1}
+.sn{flex:1;min-width:0;font-size:14px;color:#13233b;padding:4px 0}.sn b{color:#0e2a4f;margin-right:5px}.sn .nm{color:#3b4a60}
+.tc{text-align:right;font-size:12.5px;line-height:1.25;white-space:nowrap;padding-left:6px;font-variant-numeric:tabular-nums}
+.tc .a{font-weight:800;font-size:14px;color:#13233b}.r.u .a{font-style:italic}.tc .s{color:#5f6b7e}.tc .d{font-weight:700;font-style:italic}
+.h7{display:block;font-size:11.5px;color:#5f6b7e;margin-top:1px}
+.tr{min-height:34px}.tr .ic{position:absolute;left:9px;top:50%;margin-top:-13px;width:26px;height:26px;border-radius:50%;background:#0e2a4f;border:2px solid #fff;box-shadow:0 0 0 1px #0e2a4f;text-align:center;line-height:26px;font-size:14px;z-index:2}
+.pill{background:#0e2a4f;color:#fff;border-radius:9px;padding:2px 9px;font-size:12.5px;font-weight:700}
+.mt .dia{position:absolute;left:15px;top:50%;margin-top:-7px;width:11px;height:11px;transform:rotate(45deg);background:#fff;border:2.5px solid #1f6fd1;z-index:1}
+.mtl{border:1.5px dashed #1f6fd1;color:#1f6fd1;border-radius:9px;padding:1px 8px;font-size:12.5px;font-weight:700;background:#fff}.mt.past .mtl{opacity:.65}
+.legend{font-size:11.5px;color:#5f6b7e}
+.wrap{overflow-x:hidden}
+.err{background:#fde8e6;color:#8a1f12;border-radius:10px;padding:10px;margin-top:10px}.foot{font-size:12px;color:#5a6780;margin:12px 0}
+</style></head><body><header><h1>🚆 Train Status</h1><a href="./">← Home</a> · <a href="starlight-zephyr.html">Starlight &amp; Zephyr</a></header>
+<div class="wrap"><input id="q" placeholder="Train number or name (e.g. 291, Ethan Allen)" autocomplete="off">
+<div id="res" class="res"></div><div id="card"></div><div id="msg"></div>
+<div class="foot" id="foot">Live data: Amtraker (amtraker.com). Times in your local zone. Meets are estimates from live ETAs. Auto-refreshes every 3 min.</div></div>
+<script>
+const API="https://api-v3.amtraker.com/v3/trains";let all=[],sel=null,last=null;
+const $=id=>document.getElementById(id);
+const tm=s=>s?new Date(s).toLocaleTimeString([], {hour:"numeric",minute:"2-digit"}):"";
+const T=s=>s?new Date(s).getTime():NaN;
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const at=x=>x.dep||x.arr, sat=x=>x.schDep||x.schArr;
+const passed=x=>x.status==="Departed";
+function delayMin(t){const nx=t.stations.find(x=>!passed(x))||t.stations[t.stations.length-1];
+ const a=nx.arr||nx.dep,s=nx.schArr||nx.schDep;return a&&s?Math.round((T(a)-T(s))/60000):null}
+function badge(d,state){if(state&&state!=="Active")return `<span class="b gr">${esc(state)}</span>`;if(d==null)return '<span class="b gr">—</span>';
+ if(d<=5)return `<span class="b ok">${d<=0?"On time":d+" min late"}</span>`;return `<span class="b ${d<=30?"mid":"bad"}">${d>=60?Math.floor(d/60)+"h "+d%60+"m":d+" min"} late</span>`}
+async function load(){try{const r=await fetch(API,{cache:"no-store"});if(!r.ok)throw new Error(r.status);const j=await r.json();
+ all=Object.values(j).flat();last=new Date();$("msg").innerHTML="";search();if(sel)show(sel,true)}
+ catch(e){$("msg").innerHTML='<div class="err">Couldn\'t reach the live Amtrak feed right now. Check your connection — it will retry automatically in a few minutes.</div>'}}
+function search(){const q=$("q").value.trim().toLowerCase();if(!q){$("res").innerHTML="";return}
+ const m=all.filter(t=>t.trainNum===q||t.trainNum.startsWith(q)&&/^\d+$/.test(q)||q.split("|").some(w=>w&&t.routeName.toLowerCase().includes(w.trim()))).sort((a,b)=>a.trainNum-b.trainNum).slice(0,80);
+ $("res").innerHTML=m.length?m.map(t=>`<div class="ri" data-id="${esc(t.trainID)}"><span><b>#${esc(t.trainNum)}</b> ${esc(t.routeName)}<br><span class="sub">${esc(t.origName)} → ${esc(t.destName)}</span></span>${badge(delayMin(t),t.trainState)}</div>`).join(""):'<div class="sub">No active trains match.</div>';
+ document.querySelectorAll(".ri").forEach(e=>e.onclick=()=>{show(e.dataset.id);$("res").innerHTML=""})}
+function stT(x){const v=passed(x)?(x.dep||x.arr):(x.arr||x.dep);return T(v)}
+function meets(t){const out=[];const idx={};t.stations.forEach((x,i)=>{if(!(x.code in idx))idx[x.code]=i});
+ const f={};t.stations.forEach(x=>{const v=stT(x);if(!isNaN(v))f[x.code]=v});
+ for(const o of all){if(o.trainID===t.trainID||o.trainState==="Predeparture"&&false)continue;
+  const g={};o.stations.forEach(x=>{const v=stT(x);if(!isNaN(v))g[x.code]=v});
+  const sh=t.stations.map(x=>x.code).filter(c=>c in g&&c in f);if(sh.length<2||!(g[sh[0]]>g[sh[sh.length-1]]))continue; // opposing on shared track
+  for(let k=0;k<sh.length-1;k++){const a=sh[k],b=sh[k+1],d1=f[a]-g[a],d2=f[b]-g[b];
+   if((d1<=0&&d2>=0)||(d1>=0&&d2<=0)){const r=d1===d2?0:d1/(d1-d2),tm=f[a]+(f[b]-f[a])*r;
+    const i=r>0.85?idx[b]:idx[a];out.push({i,o,time:new Date(tm),past:tm<Date.now(),at:r<0.15?a:(r>0.85?b:null)});break}}}
+ return out.sort((x,y)=>x.time-y.time)}
+let touched=0,D7={},here=null;
+fetch("delay7.json",{cache:"no-store"}).then(r=>r.json()).then(j=>{D7=j;if(sel)show(sel,true)}).catch(()=>{});
+const HOME=[37.98102,-121.68711];
+if(navigator.geolocation)navigator.geolocation.getCurrentPosition(p=>{here=[p.coords.latitude,p.coords.longitude];if(sel)show(sel,true)},()=>{},{maximumAge:600000,timeout:15000});
+const GREEN="#1f9d55",AMBER="#e0a100",RED="#d64545",GRAY="#8a94a6";
+const dcol=d=>d==null?GRAY:d<=0?GREEN:d<=15?AMBER:RED;
+const sd=d=>d==null?"—":d===0?"on time":Math.abs(d)+" "+(d>0?"late":"early");
+const btx=d=>d==null?"No ETA":d===0?"On time":(Math.abs(d)>=60?Math.floor(Math.abs(d)/60)+"h "+Math.abs(d)%60+"m":Math.abs(d)+" min")+" "+(d>0?"late":"early");
+const hm=s=>s?tm(s).replace(/ ?([AP])M/,(m,x)=>x.toLowerCase()):"";
+const dname=s=>s?new Date(s).toLocaleDateString([], {weekday:"short",month:"short",day:"numeric"}):"";
+function hav(a,b,c,d){const R=3958.8,r=Math.PI/180,x=(c-a)*r,y=(d-b)*r,h=Math.sin(x/2)**2+Math.cos(a*r)*Math.cos(c*r)*Math.sin(y/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
+const sdel=x=>{const a=passed(x)?(x.dep||x.arr):(x.arr||x.dep),s=passed(x)?(x.schDep||x.schArr):(x.schArr||x.schDep);return a&&s?Math.round((T(a)-T(s))/60000):null};
+function center(force){const m=$("map"),e=$("here");if(!m||!e)return;if(!force&&Date.now()-touched<30000)return;
+ m.scrollTop=e.offsetTop-(m.clientHeight-e.offsetHeight)/2;m._auto=Date.now()}
+function hook(){const m=$("map");if(!m)return;m.addEventListener("scroll",()=>{if(Date.now()-(m._auto||0)>250)touched=Date.now()},{passive:true});["touchstart","wheel"].forEach(ev=>m.addEventListener(ev,()=>touched=Date.now(),{passive:true}))}
+function show(id,quiet){const t=all.find(x=>x.trainID===id);sel=id;if(!t){$("card").innerHTML='<div class="err">That train is no longer in the live feed.</div>';return}
+ const st=t.stations,n=st.length,d=delayMin(t),ni=st.findIndex(x=>!passed(x)),nx=ni<0?null:st[ni],lp=[...st].reverse().find(passed);
+ const ms=meets(t),h7=D7[t.trainNum],sp=t.velocity>1?`${Math.round(t.velocity)} mph ${esc(t.heading||"")}`:"Stopped";
+ const atSt=nx&&nx.status==="Station";
+ const head=ni<0?"Arrived at "+t.destName:atSt?"At "+nx.name:"Approaching "+nx.name;
+ const me=here||HOME,mi=Math.round(hav(t.lat,t.lon,me[0],me[1]));
+ const trip=t.trainID+"",dep0=st[0]&&(st[0].dep||st[0].schDep);
+ let h="";const trainAfter=atSt?ni:(ni<=0?(ni<0?n-1:-1):ni-1);
+ const trainRow=`<div class="r tr ${atSt?"pp":""}" id="here"><span class="ic">🚆</span><span class="pill">${sp}</span></div>`;
+ const meetRow=m=>`<div class="r mt ${m.past?"past pp":""}"><span class="dia"></span><span class="mtl">#${esc(m.o.trainNum)} ${hm(m.time)}</span>&nbsp;<span class="legend">${esc(m.o.routeName)}${m.past?" · met":" · est."}</span></div>`;
+ if(trainAfter===-1)h+=trainRow;
+ st.forEach((x,i)=>{const p=passed(x),dl=sdel(x),a=p?(x.dep||x.arr):(x.arr||x.dep),sc=x.schArr||x.schDep,hh=h7&&h7.st[x.code];
+  h+=`<div class="r ${p?"p pp":"u"} ${i===0?"first":""} ${i===n-1?"last":""}"><span class="dot"></span><div class="sn"><b>${esc(x.code)}</b><span class="nm">${esc(x.name)}</span>${hh&&hh.avg!=null?`<span class="h7">7-day: <span style="color:${dcol(hh.avg)}">${sd(hh.avg)}</span> avg / <span style="color:${dcol(hh.med)}">${sd(hh.med)}</span> med</span>`:""}</div>
+  <div class="tc"><div class="a">${hm(a)}</div><div class="d" style="color:${dcol(dl)}">${dl==null?"":sd(dl)}</div><div class="s">sch ${hm(sc)}</div></div></div>`;
+  const items=ms.filter(m=>m.i===i).map(m=>({k:m.time.getTime(),h:meetRow(m)}));
+  if(i===trainAfter&&!atSt)items.push({k:Date.now(),h:trainRow});
+  items.sort((a,b)=>a.k-b.k).forEach(o=>h+=o.h);
+  if(i===trainAfter&&atSt)h=h.replace(/(<div class="r [^"]*"><span class="dot"><\/span>(?:(?!<div class="r ).)*$)/s,m=>m.replace('class="r ','id="here" class="r '));});
+ if(atSt)h=h.replace('<div class="r tr pp" id="here">','');
+ $("card").innerHTML=`<div class="card"><div class="top"><div><div class="numrow"><span class="num">#${esc(t.trainNum)}</span><span class="route">${esc(t.origCode)} → ${esc(t.destCode)}</span></div>
+ <div class="trip">${esc(t.routeName)} · Trip ${esc(trip)}${dep0?" · departed "+dname(dep0):""}</div></div>
+ <div class="badge" style="background:${t.trainState==="Active"?dcol(d):GRAY}"><div class="btxt">${t.trainState==="Active"?btx(d):esc(t.trainState)}</div><div class="bcap">${nx?"ETA "+esc(nx.code)+" "+tm(nx.arr||nx.dep):"Arrived"}</div></div></div>
+ <div class="headline">${esc(head)}</div>
+ <div class="chips"><div class="chip"><span class="k">Status</span> <span class="v">${esc(t.trainState)}</span></div><div class="chip"><span class="k">From ${here?"me":"Oakley"}</span> <span class="v">${mi} mi</span></div></div>
+ ${t.statusMsg&&t.statusMsg.trim()?`<div class="ln">${esc(t.statusMsg)}</div>`:""}
+ <div class="winrow">All ${n} stops · ${esc(st[0].code)} → ${esc(st[n-1].code)} · ${ms.length} meet${ms.length===1?"":"s"}${h7?" · 7-day delay "+esc((h7.days||[]).join("–"))+" (avg/med)":""}</div>
+ <div class="map" id="map">${h}</div>
+ <div class="ln"><span class="k">Last</span> ${lp?`${esc(lp.code)} ${dname(lp.dep||lp.arr).split(",")[0]} ${tm(lp.dep||lp.arr)} (${sd(sdel(lp))})`:"—"}</div>
+ <div class="ln"><span class="k">Next</span> ${nx?`${esc(nx.code)}, ETA ${tm(nx.arr||nx.dep)} (${sd(sdel(nx))})`:"—"}</div>
+ <div class="gps">GPS ${(+t.lat).toFixed(4)}, ${(+t.lon).toFixed(4)} · fix ${tm(t.lastValTS||t.updatedAt)} · meets estimated from live times</div></div>`;
+ hook();if(!quiet)touched=0;center(!quiet);if(!quiet)history.replaceState(null,"","#"+t.trainNum)}
+$("q").oninput=search;
+load().then(()=>{const h=decodeURIComponent(location.hash.slice(1));if(h){$("q").value=h;const t=all.find(x=>x.trainNum===h);if(t)show(t.trainID);else search()}});
+setInterval(load,180000);
+</script></body></html>
